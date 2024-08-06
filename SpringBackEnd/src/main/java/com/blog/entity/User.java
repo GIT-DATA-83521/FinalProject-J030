@@ -1,5 +1,7 @@
 package com.blog.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,6 +33,8 @@ public class User extends BaseEntity {
 	
 	@Column(length = 30,nullable = false)
 	private String password;
+	
+	private LocalDate dob;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(length = 15)
