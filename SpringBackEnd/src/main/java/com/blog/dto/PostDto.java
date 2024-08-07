@@ -18,6 +18,10 @@ import lombok.ToString;
 @ToString
 // Post request Dto
 public class PostDto extends BaseDto {
+	
+	private Long authorId;
+	
+	private Long categoryId;
 
 	@NotEmpty
 	@Size(min = 2 , message = "Post Title should have at least 2 characters. ")
@@ -30,9 +34,7 @@ public class PostDto extends BaseDto {
 	@NotEmpty
 	private String content;
 	
-	private Long authorId;
+
 	
-	private Long categoryId;
-	
-	private Set<CommentDto> comments;
+//	private Set<CommentDto> comments;
 }
