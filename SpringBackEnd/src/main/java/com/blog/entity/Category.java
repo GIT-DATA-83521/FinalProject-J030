@@ -30,4 +30,27 @@ public class Category extends BaseEntity {
 	
 	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Post> posts = new ArrayList<>();
+	
+	// helper method to establish Bidire Asso Betn Category and Post
+	
+	public void addPost(Post post) {
+		
+		// Category -> Post 
+		// Parent -> Child
+		this.posts.add(post);
+		
+		// Post -> Category
+		// Child -> Parent
+		post.setCategory(this);
+	}
+
+	public void removePost(Post post) {
+			
+			this.posts.remove(post);
+			
+			post.setCategory(null);
+		}
+	
+
+
 }
