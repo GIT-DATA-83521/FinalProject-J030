@@ -1,5 +1,8 @@
 package com.blog.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -63,4 +66,76 @@ public class PostServiceImpl implements PostService {
 		return new ApiRespone("New Blog Post Added with Id = "+ persistentPost.getId());
 	}
 
+
+	// get List of Posts
+	
+	@Override
+	public List<Post> getAllPosts() {
+		
+		return postDao.findAll();
+	}
+
+
+	// get Post By ID
+	@Override
+	public PostDto getPostById(Long postId) {
+		Post post = postDao.findById(postId)
+						.orElseThrow(()->
+								new ResourceNotFoundException("Invalid Post Id"));
+		return mapToDto(post);
+	}
+
+
+	// Update Post By Id
+	@Override
+	public PostDto updatePost(PostDto postDto, Long postId) {
+		Post post = postDao.findById(postId)
+						.orElseThrow(()-> 
+								new ResourceNotFoundException("Invalid Post ID!!!!"));
+		
+		Category category = categoryDao.findById(postDto.getCategoryId())
+							.orElseThrow(()->
+									new ResourceNotFoundException("Invalid Category Id!!!"));
+		
+			post.setTitle(postDto.getTitle());
+			post.setDescription(postDto.getDescription());
+			post.setContent(postDto.getContent());
+			post.setCategory(category);
+			Post updatedPost = postDao.save(post);
+		
+		return mapToDto(updatedPost);
+	}
+
+
+
+	@Override
+	public List<PostDto> getPostByCategory(Long categoryId) {
+		Category category = categoryDao.findById(categoryId)
+								.orElseThrow(()->
+										new ResourceNotFoundException("Invalid Category Id!!!"));
+		List<Post> posts = postDao.findByCategoryId(categoryId);
+		
+		
+		return posts.stream().map((post)->
+								mapToDto(post)).collect(Collectors.toList());
+	}
+
+
+
+	@Override
+	public ApiRespone deletePostById(Long postId) {
+		if( postDao.existsById(postId)) {
+			postDao.deleteById(postId);
+			return new ApiRespone("Post Deleted!!!");
+			}
+		return new ApiRespone("Post Deletion Failed!!");
+	}
+
+	// Converting Entity Into DTO
+	private PostDto mapToDto (Post post) {
+		PostDto postDto = mapper.map(post, PostDto.class);
+		
+		return postDto;
+	}
+	
 }
