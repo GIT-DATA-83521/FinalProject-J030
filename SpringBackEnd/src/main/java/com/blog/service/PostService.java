@@ -5,4 +5,6 @@ import com.blog.dto.PostDto;
 
 public interface PostService {
 	ApiRespone postNewBlog(PostDto requestDto);
+	
+	
 }

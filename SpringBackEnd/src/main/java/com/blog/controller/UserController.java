@@ -16,7 +16,7 @@ import com.blog.dto.RegisterDto;
 import com.blog.service.UserService;
 
 @RestController
-@RequestMapping("/user/auth")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
