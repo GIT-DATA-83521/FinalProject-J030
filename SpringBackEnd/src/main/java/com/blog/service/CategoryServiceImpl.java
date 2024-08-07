@@ -12,6 +12,7 @@ import com.blog.custom_exception.ResourceNotFoundException;
 import com.blog.dao.CategoryDao;
 import com.blog.dto.ApiRespone;
 import com.blog.dto.CategoryDto;
+import com.blog.dto.CategoryPostDto;
 import com.blog.entity.Category;
 
 @Service
@@ -77,6 +78,16 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		return new ApiRespone("Category Details Deletion Unsuccessful!!!");
 		
+	}
+
+
+	@Override
+	public CategoryPostDto getCategoryAndPostDetails(Long categoryId) {
+		
+		Category categoryEnt = categoryDao
+								.getCategoryAndPosts(categoryId)
+								.orElseThrow(()->new ResourceNotFoundException("Invalid Category ID!!"));
+		return mapper.map(categoryEnt, CategoryPostDto.class);
 	}
 
 }
