@@ -16,7 +16,7 @@ import com.blog.dto.RegisterDto;
 import com.blog.service.UserService;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/user/auth")
 public class UserController {
 
 	@Autowired
@@ -27,7 +27,7 @@ public class UserController {
 	}
 	
 	// Login REST API
-	@PostMapping("/login")
+	@PostMapping(value = {"/login","/signin"})
 	public ResponseEntity<?>loginUser(@RequestBody @Valid LoginDto request){
 		System.out.println("in login"+request);
 		return ResponseEntity.ok(userService.authenticateUser(request));
@@ -35,7 +35,7 @@ public class UserController {
 	}
 	
 	// Register REST API
-	@PostMapping("/register")
+	@PostMapping(value = {"/register","/signup"})
 	public ResponseEntity<String>registerUser(@RequestBody RegisterDto registerDto){
 		
 		String response = userService.register(registerDto);
