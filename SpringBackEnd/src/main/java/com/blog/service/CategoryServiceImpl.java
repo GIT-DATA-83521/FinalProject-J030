@@ -48,7 +48,11 @@ public class CategoryServiceImpl implements CategoryService {
 		// import statements
 
 		    // Convert DTO to Entity
-		    Category category = mapper.map(categoryDto, Category.class);
+		
+		
+		
+		    Category category = new Category();
+		  //  category.setCategoryName(null);
 
 		    // Set additional fields (if needed)
 		    category.setCategoryName(categoryDto.getCategoryName());
@@ -116,5 +120,7 @@ public class CategoryServiceImpl implements CategoryService {
 								.orElseThrow(()->new ResourceNotFoundException("Invalid Category ID!!"));
 		return mapper.map(categoryEnt, CategoryPostDto.class);
 	}
+	
+	
 
 }
