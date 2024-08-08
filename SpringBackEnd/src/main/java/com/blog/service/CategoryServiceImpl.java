@@ -8,12 +8,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blog.custom_exception.ApiException;
 import com.blog.custom_exception.ResourceNotFoundException;
 import com.blog.dao.CategoryDao;
+import com.blog.dao.UserDao;
 import com.blog.dto.ApiRespone;
 import com.blog.dto.CategoryDto;
 import com.blog.dto.CategoryPostDto;
 import com.blog.entity.Category;
+import com.blog.entity.Role;
+import com.blog.entity.User;
 
 @Service
 @Transactional
@@ -25,15 +29,38 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryDao categoryDao;
 	
 	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
 	private ModelMapper mapper;
 	
 	
 	@Override
-	public Category addNewCategory(Category category) {
+	public CategoryDto addNewCategory(CategoryDto categoryDto) {
 		
-		Category persistentCategory = categoryDao.save(category);
-		return persistentCategory;
-	}
+//		User user = userDao.findById(categoryDto.getAdminId())
+//				.orElseThrow(() -> new ResourceNotFoundException("Not an admin!!"));
+//		
+//		if(user.getRole()==Role.ADMIN)
+//			throw new ApiException("Invalid role!!");
+		
+		// Assuming you have these classes and interfaces in place
+		// import statements
+
+		    // Convert DTO to Entity
+		    Category category = mapper.map(categoryDto, Category.class);
+
+		    // Set additional fields (if needed)
+		    category.setCategoryName(categoryDto.getCategoryName());
+		    category.setDescription(categoryDto.getDescription());
+
+		    // Save the entity to the database
+		    Category persistentCategory = categoryDao.save(category);
+
+		    // Convert the saved entity back to DTO and return
+		    return mapper.map(persistentCategory, CategoryDto.class);
+		}
+
 
 
 	@Override

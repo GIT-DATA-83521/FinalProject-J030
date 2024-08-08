@@ -40,8 +40,8 @@ public class CategoryController {
 	
 	// Add Category
 	
-	@PostMapping
-	public  ResponseEntity<?> addCategory (@RequestBody Category newCategory){
+	@PostMapping("/addcategory")
+	public  ResponseEntity<?> addCategory (@RequestBody CategoryDto newCategory){
 		System.out.println("In Add Category "+newCategory);
 		
 		try {

@@ -9,7 +9,7 @@ import com.blog.entity.Category;
 
 public interface CategoryService {
 	
-	Category addNewCategory (Category category);
+	CategoryDto addNewCategory (CategoryDto categoryDto);
 	
 	List<Category> getAllCategories ();
 	

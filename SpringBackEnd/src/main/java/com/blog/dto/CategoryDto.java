@@ -12,6 +12,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class CategoryDto extends BaseDto {
+	
+//	private Long adminId;
 
 	private String categoryName;
 	
