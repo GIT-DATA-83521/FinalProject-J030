@@ -27,7 +27,7 @@ public class UserController {
 	}
 	
 	// Login REST API
-	@PostMapping(value = {"/login","/signin"})
+	@PostMapping(value = {"/signin"})
 	public ResponseEntity<?>loginUser(@RequestBody @Valid LoginDto request){
 		System.out.println("in login"+request);
 		return ResponseEntity.ok(userService.authenticateUser(request));
@@ -35,7 +35,7 @@ public class UserController {
 	}
 	
 	// Register REST API
-	@PostMapping(value = {"/register","/signup"})
+	@PostMapping(value = {"/signup"})
 	public ResponseEntity<String>registerUser(@RequestBody RegisterDto registerDto){
 		
 		String response = userService.register(registerDto);
