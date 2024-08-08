@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 			user.setPassword(registerDto.getPassword());
 			user.setDob(registerDto.getDob());
 			user.setRole(registerDto.getRole());
-			user.setUserAddress(registerDto.getAddress());
+			user.setUserCity(registerDto.getUserCity());
 			
 			userDao.save(user);
 			

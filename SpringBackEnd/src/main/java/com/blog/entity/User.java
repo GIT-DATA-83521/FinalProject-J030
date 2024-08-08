@@ -47,8 +47,7 @@ public class User extends BaseEntity {
 	@Lob
 	private byte[] image;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name = "address_id")
-	private Address userAddress;
+	@Column(name = "city",length = 30)
+	private String userCity;
 	
 }
