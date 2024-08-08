@@ -2,7 +2,7 @@ package com.blog.dto;
 
 import java.time.LocalDate;
 
-
+import com.blog.entity.Address;
 import com.blog.entity.Role;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +29,8 @@ public class RegisterDto extends BaseDto {
 	private LocalDate dob;
 	
 	private Role role;
+	
+	private Address address;
 	
 	
 }
