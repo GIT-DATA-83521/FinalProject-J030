@@ -23,7 +23,7 @@ import com.blog.dto.CategoryDto;
 import com.blog.entity.Category;
 import com.blog.service.CategoryService;
 
-//import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 
 @RestController
 @RequestMapping("/categories")
@@ -56,7 +56,7 @@ public class CategoryController {
 	}
 	
 	// Get All Categories
-	@GetMapping
+	@GetMapping("/getAllCat")
 	public ResponseEntity<List<Category>> listAllCategories(){
 		return ResponseEntity.ok(categoryService.getAllCategories());
 	}
@@ -91,6 +91,19 @@ public class CategoryController {
 		
 		System.out.println("In Delete Category"+categoryId);
 		return ResponseEntity.ok(categoryService.deleteCategory(categoryId));
+	}
+	
+	@GetMapping("/{categoryId}/posts")
+	public ResponseEntity<?> getCategoryAndPostDetails(@PathVariable Long categoryId){
+		try {
+			
+			return ResponseEntity.ok(categoryService.getCategoryAndPostDetails(categoryId));
+			
+		} catch (RuntimeException e) {
+			System.out.println(e);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ApiRespone(e.getMessage()));
+		}
 	}
 	
 }
