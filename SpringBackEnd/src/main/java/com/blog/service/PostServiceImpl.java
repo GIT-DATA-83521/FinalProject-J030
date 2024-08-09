@@ -70,9 +70,13 @@ public class PostServiceImpl implements PostService {
 	// get List of Posts
 	
 	@Override
-	public List<Post> getAllPosts() {
+	public List<PostDto> getAllPosts() {
 		
-		return postDao.findAll();
+		List<Post> posts = postDao.findAll();
+		System.out.println("post"+posts);
+		
+		return posts.stream().map((post) -> mapper.map(post, PostDto.class))
+				.collect(Collectors.toList());
 	}
 
 

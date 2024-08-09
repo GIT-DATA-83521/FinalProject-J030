@@ -1,6 +1,7 @@
 package com.blog.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -68,9 +69,12 @@ public class CategoryServiceImpl implements CategoryService {
 
 
 	@Override
-	public List<Category> getAllCategories() {
+	public List<CategoryDto> getAllCategories() {
 		
-		return categoryDao.findAll();
+		List<Category> categories = categoryDao.findAll();
+		
+		return categories.stream().map((category) -> mapper.map(category, CategoryDto.class))
+				.collect(Collectors.toList());
 	}
 
 

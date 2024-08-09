@@ -14,7 +14,7 @@ public interface UserService {
 	
 	String register(RegisterDto registerDto);
 	
-	List<User> getAllUsers();
+	List<UserResponseDto> getAllUsers();
 	
 	RegisterDto getUserDetails (Long userId) ;
 	

@@ -9,7 +9,7 @@ import com.blog.entity.Post;
 public interface PostService {
 	ApiRespone postNewBlog(PostDto requestDto);
 	
-	List<Post> getAllPosts ();
+	List<PostDto> getAllPosts ();
 	
 	PostDto getPostById(Long postId);
 	

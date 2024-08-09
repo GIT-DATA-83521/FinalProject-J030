@@ -19,7 +19,7 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(callSuper = true,exclude = "category")
+@ToString(callSuper = true)
 public class Post extends BaseEntity {
 	
 	@Column(length = 50,nullable = false,unique = true)
@@ -29,11 +29,11 @@ public class Post extends BaseEntity {
 	private String description;
 	private String content;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id",nullable = false)
 	private Category category;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "auther_id",nullable = false)
 	private User user;
 }

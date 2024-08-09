@@ -1,6 +1,7 @@
 package com.blog.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -61,9 +62,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getAllUsers() {
+	public List<UserResponseDto> getAllUsers() {
 		
-		return userDao.findAll();
+		List<User> users = userDao.findAll();
+		
+		return users.stream().map((user) -> mapper.map(user, UserResponseDto.class))
+				.collect(Collectors.toList());
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.dto.ApiRespone;
 import com.blog.dto.LoginDto;
 import com.blog.dto.RegisterDto;
+import com.blog.dto.UserResponseDto;
 import com.blog.entity.User;
 import com.blog.service.UserService;
 
@@ -52,7 +53,7 @@ public class UserController {
 		return new ResponseEntity<> (response , HttpStatus.CREATED);
 	}
 	@GetMapping("/getAllUsers")
-	public ResponseEntity<List<User>> listAllUsers(){
+	public ResponseEntity<List<UserResponseDto>> listAllUsers(){
 		return ResponseEntity.ok(userService.getAllUsers());
 	}
 	

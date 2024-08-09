@@ -11,7 +11,7 @@ public interface CategoryService {
 	
 	CategoryDto addNewCategory (CategoryDto categoryDto);
 	
-	List<Category> getAllCategories ();
+	List<CategoryDto> getAllCategories ();
 	
 	CategoryDto getCategoryDetails (Long categoryId) ;
 	
