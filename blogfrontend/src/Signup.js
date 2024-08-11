@@ -1,102 +1,120 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 const Signup = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [dob, setDob] = useState('');
-    const [role, setRole] = useState('BLOGGER');  // Default role
-    const [error, setError] = useState('');
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        dob: '',
+        city: '',
+        role: '', // Add role field to state
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission (e.g., send data to backend)
-        const userData = {
-            firstName,
-            lastName,
-            email,
-            password,
-            dob,
-            role
-        };
-        console.log(userData);
+        console.log('Form Data Submitted:', formData);
+        // Add logic to handle form submission, such as sending data to the backend
     };
 
     return (
         <Container>
             <Row className="justify-content-md-center">
                 <Col md="6">
-                    <h2 className="text-center my-4">Signup for Blog Management System</h2>
-                    {error && <Alert variant="danger">{error}</Alert>}
+                    <h2 className="text-center my-4">Signup</h2>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="firstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control 
-                                type="text" 
-                                value={firstName} 
-                                onChange={(e) => setFirstName(e.target.value)} 
-                                required 
+                            <Form.Control
+                                type="text"
+                                name="firstName"
+                                placeholder="Enter first name"
+                                value={formData.firstName}
+                                onChange={handleChange}
                             />
                         </Form.Group>
+
                         <Form.Group controlId="lastName">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control 
-                                type="text" 
-                                value={lastName} 
-                                onChange={(e) => setLastName(e.target.value)} 
-                                required 
+                            <Form.Control
+                                type="text"
+                                name="lastName"
+                                placeholder="Enter last name"
+                                value={formData.lastName}
+                                onChange={handleChange}
                             />
                         </Form.Group>
+
                         <Form.Group controlId="email">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control 
-                                type="email" 
-                                value={email} 
-                                onChange={(e) => setEmail(e.target.value)} 
-                                required 
+                            <Form.Control
+                                type="email"
+                                name="email"
+                                placeholder="Enter email"
+                                value={formData.email}
+                                onChange={handleChange}
                             />
                         </Form.Group>
+
                         <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control 
-                                type="password" 
-                                value={password} 
-                                onChange={(e) => setPassword(e.target.value)} 
-                                required 
+                            <Form.Control
+                                type="password"
+                                name="password"
+                                placeholder="Enter password"
+                                value={formData.password}
+                                onChange={handleChange}
                             />
                         </Form.Group>
+
                         <Form.Group controlId="dob">
                             <Form.Label>Date of Birth</Form.Label>
-                            <Form.Control 
-                                type="date" 
-                                value={dob} 
-                                onChange={(e) => setDob(e.target.value)} 
-                                required 
+                            <Form.Control
+                                type="date"
+                                name="dob"
+                                value={formData.dob}
+                                onChange={handleChange}
                             />
                         </Form.Group>
+
+                        <Form.Group controlId="city">
+                            <Form.Label>City</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="city"
+                                placeholder="Enter your city"
+                                value={formData.city}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+
                         <Form.Group controlId="role">
                             <Form.Label>Role</Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={role} 
-                                onChange={(e) => setRole(e.target.value)} 
-                                required 
+                            <Form.Control
+                                as="select"
+                                name="role"
+                                value={formData.role}
+                                onChange={handleChange}
                             >
+                                <option value="">Select Role</option>
                                 <option value="ADMIN">Admin</option>
                                 <option value="BLOGGER">Blogger</option>
                                 <option value="COMMENTER">Commenter</option>
                             </Form.Control>
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="w-100 mt-3">
+
+                        <Button variant="primary" type="submit" className="mt-3">
                             Signup
                         </Button>
                     </Form>
-                    <p className="text-center mt-3">
-                        Already have an account? <Link to="/login">Login here</Link>
-                    </p>
                 </Col>
             </Row>
         </Container>
