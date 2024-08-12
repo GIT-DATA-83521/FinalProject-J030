@@ -8,6 +8,11 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blog.custom_exception.AuthenticationException;
@@ -20,6 +25,7 @@ import com.blog.dto.LoginDto;
 import com.blog.dto.RegisterDto;
 import com.blog.dto.UserResponseDto;
 import com.blog.entity.User;
+import com.blog.security.JwtUtils;
 
 @Service
 @Transactional
@@ -29,15 +35,29 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private JwtUtils jwtUtils;
+	
+	@Autowired
 	private ModelMapper mapper;
 	
 	@Override
-	public UserResponseDto authenticateUser(LoginDto loginDto) {
-		User user = userDao.findByEmailAndPassword(loginDto.getEmail(),
-													loginDto.getPassword())
-				.orElseThrow(()-> new AuthenticationException("Invalid Email or Password!!!!"));
+	public String authenticateUser(LoginDto loginDto) {
+		Authentication authentication =
+						authenticationManager.authenticate
+						(new UsernamePasswordAuthenticationToken
+								(loginDto.getEmail(), loginDto.getPassword()));
 		
-		return mapper.map(user,UserResponseDto.class);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		String token = jwtUtils.generateJwtToken(authentication);
+		
+		return token;
 	}
 
 	@Override

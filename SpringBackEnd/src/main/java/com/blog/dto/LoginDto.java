@@ -4,6 +4,8 @@ package com.blog.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +26,6 @@ public class LoginDto {
 	private String email;
 	
 	@NotEmpty(message = "Enter Password")
+	@Length(min = 3 , max = 15 , message = "Invalid password length!!")
 	private String password;
 }

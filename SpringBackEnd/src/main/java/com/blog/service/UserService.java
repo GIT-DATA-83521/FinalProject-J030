@@ -10,7 +10,7 @@ import com.blog.entity.User;
 
 public interface UserService {
 
-	UserResponseDto authenticateUser(LoginDto loginDto);
+	String authenticateUser(LoginDto loginDto);
 	
 	String register(RegisterDto registerDto);
 	

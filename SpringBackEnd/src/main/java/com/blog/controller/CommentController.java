@@ -21,7 +21,7 @@ import com.blog.service.CommentService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
-@RequestMapping("/commentsAPI")
+@RequestMapping("/comments")
 public class CommentController {
 	
 	@Autowired
@@ -31,7 +31,7 @@ public class CommentController {
 		System.out.println("In Ctor"+getClass());
 	}
 	
-	@PostMapping
+	@PostMapping("/addComment")
 	public ResponseEntity<?> addComment(@RequestBody CommentDto commentDto){
 		System.out.println("in add comments"+commentDto);
 		
@@ -50,7 +50,7 @@ public class CommentController {
 		return commentService.getCommentByPostId(postId);
 	}
 	
-	@GetMapping("/posts/{postId}/comments/{commentId}")
+	@GetMapping("/getCommentById/posts/{postId}/comments/{commentId}")
 	public ResponseEntity<CommentDto> getCommentById(@PathVariable(value = "postId") Long postId,
 													 @PathVariable(value = "id")Long commentId){
 		
@@ -59,7 +59,7 @@ public class CommentController {
 		return new ResponseEntity<>(commentDto,HttpStatus.OK);
 	}
 	
-	@PutMapping("/posts/{postId}/comments/{commentId}")
+	@PutMapping("/updateComment/posts/{postId}/comments/{commentId}")
 	public ResponseEntity<CommentDto> updateComment(@RequestBody CommentDto commentDto, @PathVariable(value = "postId")Long postId,
 													@PathVariable(value = "id") Long commentId){
 		
@@ -69,7 +69,7 @@ public class CommentController {
 	}
 	
 	
-	@DeleteMapping("/posts/{postId}/comments/{commentId}")
+	@DeleteMapping("/deleteComment/posts/{postId}/comments/{commentId}")
 	public ResponseEntity<String>deleteComment(@PathVariable(value = "postId")Long postId,
 											   @PathVariable(value = "id")Long commentId){
 		

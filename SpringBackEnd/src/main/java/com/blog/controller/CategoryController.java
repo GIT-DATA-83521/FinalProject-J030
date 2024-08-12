@@ -63,7 +63,7 @@ public class CategoryController {
 	
 	
 	// get Category Details By Id
-	@GetMapping("/{categoryId}")
+	@GetMapping("/getCatById/{categoryId}")
 	public ResponseEntity<?> getCategoryDetails(@PathVariable ("categoryId") @NotNull @Min(value = 1, message = "Category Id must be Greater than Zero") Long categoryId){
 		
 		System.out.println("in get Category"+categoryId);
@@ -78,7 +78,7 @@ public class CategoryController {
 	}
 	
 	// update Category 
-	@PutMapping("/{categoryId}")
+	@PutMapping("/updateCat/{categoryId}")
 	public ResponseEntity<?> updateCategory(@PathVariable ("categoryId") Long categoryId , @RequestBody CategoryDto categoryDto){
 		System.out.println("In Update Category "+ categoryId + " "+ categoryDto);
 		
@@ -86,14 +86,14 @@ public class CategoryController {
 	}
 	
 	// Delete Category by Id
-	@DeleteMapping("/{categoryId}")
+	@DeleteMapping("/deleteCat/{categoryId}")
 	public ResponseEntity<?> deleteCategory(@PathVariable("categoryId") Long categoryId){
 		
 		System.out.println("In Delete Category"+categoryId);
 		return ResponseEntity.ok(categoryService.deleteCategory(categoryId));
 	}
 	
-	@GetMapping("/{categoryId}/posts")
+	@GetMapping("/getCatAndPosts/{categoryId}/posts")
 	public ResponseEntity<?> getCategoryAndPostDetails(@PathVariable Long categoryId){
 		try {
 			

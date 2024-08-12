@@ -34,7 +34,7 @@ public class PostController {
 		System.out.println("In Ctor"+getClass());
 	}
 	
-	@PostMapping
+	@PostMapping("/addPost")
 	public ResponseEntity<?> addPost(@RequestBody @Valid PostDto postDto){
 		System.out.println("In Add Post "+ postDto);
 		try {
@@ -55,13 +55,13 @@ public class PostController {
 	
 	
 	// Get Post by Id
-	@GetMapping("/{postId}")
+	@GetMapping("/getPostById/{postId}")
 	public ResponseEntity<PostDto> getPostById (@PathVariable (name = "postId") Long postId){
 		return ResponseEntity.ok(postService.getPostById(postId));
 	}
 	
 	// Update Post By Id
-	@PutMapping("/{postId}")
+	@PutMapping("/updatePost/{postId}")
 	public ResponseEntity<PostDto> updatePostById (@Valid @RequestBody PostDto postDto , @PathVariable (name = "postId") Long postId){
 		
 		PostDto postResponse = postService.updatePost(postDto, postId);
@@ -69,7 +69,7 @@ public class PostController {
 	}
 	
 	// Delete Post By Id
-	@DeleteMapping("/{postId}")
+	@DeleteMapping("/deletePost/{postId}")
 	public ResponseEntity<?> deletePostById (@PathVariable (name = "postId") Long postId){
 		return ResponseEntity.ok(postService.deletePostById(postId));
 	}
