@@ -86,6 +86,7 @@ public class PostServiceImpl implements PostService {
 		Post post = postDao.findById(postId)
 						.orElseThrow(()->
 								new ResourceNotFoundException("Invalid Post Id"));
+		System.out.println("post"+post);
 		return mapToDto(post);
 	}
 
@@ -106,6 +107,7 @@ public class PostServiceImpl implements PostService {
 			post.setContent(postDto.getContent());
 			post.setCategory(category);
 			Post updatedPost = postDao.save(post);
+			System.out.println("ggg"+updatedPost);
 		
 		return mapToDto(updatedPost);
 	}
@@ -138,6 +140,7 @@ public class PostServiceImpl implements PostService {
 	// Converting Entity Into DTO
 	private PostDto mapToDto (Post post) {
 		PostDto postDto = mapper.map(post, PostDto.class);
+		System.out.println("postdto"+postDto);
 		
 		return postDto;
 	}

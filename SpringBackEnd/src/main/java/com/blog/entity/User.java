@@ -44,9 +44,6 @@ public class User extends BaseEntity {
 	@Column(length = 15)
 	private Role role;
 	
-	@Lob
-	private byte[] image;
-	
 	@Column(name = "city",length = 30)
 	private String userCity;
 	

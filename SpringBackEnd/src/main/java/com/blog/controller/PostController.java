@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.blog.entity.Post;
 import com.blog.service.PostService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/posts")
 public class PostController {
 
@@ -34,8 +36,8 @@ public class PostController {
 		System.out.println("In Ctor"+getClass());
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> addPost(@RequestBody @Valid PostDto postDto){
+	@PostMapping("/addPost")
+	public ResponseEntity<?> addPost(@RequestBody  PostDto postDto){
 		System.out.println("In Add Post "+ postDto);
 		try {
 			return ResponseEntity.status(HttpStatus.CREATED)
@@ -62,10 +64,10 @@ public class PostController {
 	
 	// Update Post By Id
 	@PutMapping("/{postId}")
-	public ResponseEntity<PostDto> updatePostById (@Valid @RequestBody PostDto postDto , @PathVariable (name = "postId") Long postId){
+	public ResponseEntity<Post> updatePostById (@Valid @RequestBody PostDto postDto , @PathVariable (name = "postId") Long postId){
 		
 		PostDto postResponse = postService.updatePost(postDto, postId);
-		return new ResponseEntity<>(postResponse,HttpStatus.OK);
+		return new ResponseEntity(postResponse,HttpStatus.OK);
 	}
 	
 	// Delete Post By Id
